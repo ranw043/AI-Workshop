@@ -1,8 +1,12 @@
+import AuthPanel from "./auth-panel";
+
 export default function Home() {
   const year = new Date().getFullYear();
 
   return (
     <main>
+      <AuthPanel />
+
       <section className="hero">
         <h1>Ran Watari</h1>
         <p>an exchange student at UH Manoa studying linguistics.</p>
