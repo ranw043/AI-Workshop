@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import type { User } from "@supabase/supabase-js";
 import { getSupabase } from "./supabase-client";
+import TaskList from "./task-list";
 
 type Mode = "idle" | "signup" | "login";
 
@@ -69,16 +70,21 @@ export default function AuthPanel() {
     return <section className="auth">Checking sign-in…</section>;
   }
 
+  // Signed in: show who it is, the log out button, and their task list.
+  // The key makes the list reload from scratch if a different person signs in.
   if (user) {
     return (
-      <section className="auth">
-        <p className="auth-status">
-          Signed in as <strong>{user.email}</strong>
-        </p>
-        <button type="button" onClick={handleLogout}>
-          Log out
-        </button>
-      </section>
+      <>
+        <section className="auth">
+          <p className="auth-status">
+            Signed in as <strong>{user.email}</strong>
+          </p>
+          <button type="button" onClick={handleLogout}>
+            Log out
+          </button>
+        </section>
+        <TaskList key={user.id} />
+      </>
     );
   }
 
